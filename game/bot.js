@@ -1,32 +1,17 @@
-import { encounters } from "./main.js"
-
-let answers = []
-let allowed = []
-
-fetch('../data/allowed.txt')
-	.then(response => response.text())
-	.then(text => allowed = text.split('\n'))
-fetch('../data/answers.txt')
-	.then(response => response.text())
-	.then(text => {answers = text.split('\n')})
+import { answers, input_word } from "./main.js"
 
 document.getElementById("botButton").onclick = function() {
-	// console.log(answers)
-	// console.log(allowed)
+	let all = []
+	answers.forEach(word => {
+		if (word != 0)
+			all.push(word)
+	});
+	// console.log(all)
+	// console.log(Math.floor(Math.random() * all.length))
+	// console.log(all.length)
 
-	let index = 0
-	answers.forEach(word => {
-		if (word)
-			for (let i = 0; i < 5; i++) {
-				if (word != 0 && encounters["correct"][i] != '_' && word.charAt(i) != encounters["correct"][i]) {
-					answers[index] = 0
-					break;
-				}
-			}
-		index++
-	})
-	answers.forEach(word => {
-		if (word)
-			console.log(word)
-	})
+	let ans = all[Math.floor(Math.random() * all.length)];
+	document.getElementById("input_box").value = ans
+	// console.log(ans)
+	input_word(ans)
 }

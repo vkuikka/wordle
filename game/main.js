@@ -1,3 +1,5 @@
+import { updateAssistant } from "./assistant.js";
+
 String.prototype.replaceAt = function(index, replacement) {
     if (index >= this.length)
         return this.valueOf();
@@ -5,6 +7,14 @@ String.prototype.replaceAt = function(index, replacement) {
     chars[index] = replacement;
     return chars.join('');
 }
+
+// remove encountered wrong position chars if they are found in correct position
+// function updateEncounters(encounters) {
+// 	for (let i = 0; i < 5; i++) {
+// 		encounters['position'][i].forEach(c => {
+// 		});
+// 	}
+// }
 
 function addElem(color, char) {
 	let newDiv = document.createElement("div")
@@ -15,7 +25,7 @@ function addElem(color, char) {
 
 let	word = '12345'
 let	allowed = 0
-let	answers = 0
+export let	answers = 0
 let	winner = 0
 
 fetch('../data/allowed.txt')
@@ -37,9 +47,19 @@ export let encounters = {
 	"correct": ['_', '_', '_', '_', '_']
 }
 
+document.getElementById("assistantButton").onchange = function() {
+	updateAssistant()
+}
+
 document.getElementById("input_box").onchange = function() {
+	input_word(this.value)
+	this.value = ''
+}
+
+export function	input_word(word) {
 	console.log(tries + ' / 6')
-	word = this.value.toLowerCase()
+	console.log(encounters)
+	word = word.toLowerCase()
 	let	encountered = {}
 	let tmpWinner = winner
 	let	i
@@ -87,5 +107,6 @@ document.getElementById("input_box").onchange = function() {
 			i += 1
 		}
 	}
-	this.value = ""
+	// encounters = updateEncounters(encounters)
+	updateAssistant()
 };
