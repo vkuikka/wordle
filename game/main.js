@@ -1,4 +1,5 @@
 import { updateAssistant } from "./assistant.js";
+import { what } from "./bot.js";
 
 String.prototype.replaceAt = function(index, replacement) {
     if (index >= this.length)
@@ -26,9 +27,8 @@ function addElem(color, char) {
 	document.getElementById("chars").appendChild(newDiv)
 }
 
-let	word = '12345'
-let	allowed = 0
 export let	answers = 0
+let	allowed = 0
 let	winner = 0
 
 fetch('../data/allowed.txt')
@@ -41,6 +41,7 @@ fetch('../data/answers.txt')
 		winner = answers[Math.floor(Math.random() * answers.length)];
 		console.log('winning word: ', winner)
 	})
+	.then(() => what())
 
 let tries = 1
 
@@ -60,6 +61,14 @@ document.getElementById("input_box").onchange = function() {
 }
 
 export function	input_word(word) {
+	let win = 1
+	encounters['correct'].forEach(e => {
+		if (e == '_')
+			win = 0
+	})
+	if (win)
+		location.reload()
+
 	console.log(tries + ' / 6')
 	word = word.toLowerCase()
 	let	encountered = {}
@@ -89,7 +98,7 @@ export function	input_word(word) {
 				addElem('green', word.charAt(i))
 			else if (tmpWinner.includes(word[i]))
 			{
-				if (encountered[word[i]] == undefined)
+				if (encountered[word[i]] === undefined)
 					encountered[word[i]] = 1
 				else
 					encountered[word[i]] += 1
@@ -100,13 +109,11 @@ export function	input_word(word) {
 				if (encounters['correct'][i] == '_')
 					encounters['position'][i].push(word[i])
 			}
-			else if (!encounters['correct'].includes(word[i]))
+			else
 			{
 				addElem('grey', word.charAt(i))
 				encounters['wrong'].push(word.charAt(i))
 			}
-			else
-				addElem('lightgrey', word.charAt(i))
 			i += 1
 		}
 	}
