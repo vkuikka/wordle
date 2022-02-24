@@ -4,17 +4,6 @@
 	margin-bottom: 100px;
 	margin-top: 100px;
 }
-.green {
-	background-color: green;
-}
-
-.grey {
-	background-color: grey;
-}
-
-.yellow {
-	background-color: yellow;
-}
 
 .break {
 	flex-basis: 100%;

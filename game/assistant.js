@@ -19,7 +19,7 @@ export function updateAssistant() {
 	answers.forEach(word => {
 		if (word)
 			for (let i = 0; i < 5; i++) {
-				if (encounters["wrong"].includes(word.charAt(i))) {
+				if (encounters["wrong"].includes(word.charAt(i)) && !encounters["correct"].includes(word.charAt(i))) {
 					answers[index] = 0
 				}
 			}

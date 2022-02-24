@@ -8,13 +8,16 @@ String.prototype.replaceAt = function(index, replacement) {
     return chars.join('');
 }
 
-// remove encountered wrong position chars if they are found in correct position
-// function updateEncounters(encounters) {
-// 	for (let i = 0; i < 5; i++) {
-// 		encounters['position'][i].forEach(c => {
-// 		});
-// 	}
-// }
+function updateEncounters(encounters) {
+	encounters['correct'].forEach(correct_c => {
+		for (let i = 0; i < 5; i++)
+			encounters['position'][i].forEach(c => {
+				if (correct_c == c)
+					encounters['position'][i].splice(encounters['position'][i].indexOf(c), 1)
+			})
+	})
+	return (encounters)
+}
 
 function addElem(color, char) {
 	let newDiv = document.createElement("div")
@@ -58,7 +61,6 @@ document.getElementById("input_box").onchange = function() {
 
 export function	input_word(word) {
 	console.log(tries + ' / 6')
-	console.log(encounters)
 	word = word.toLowerCase()
 	let	encountered = {}
 	let tmpWinner = winner
@@ -76,7 +78,6 @@ export function	input_word(word) {
 		{
 			if (word[i] == tmpWinner[i]) {
 				encounters['correct'][i] = word[i]
-				encounters['position'][i] = []
 				tmpWinner = tmpWinner.replaceAt(i, '_')
 			}
 			i += 1
@@ -93,20 +94,22 @@ export function	input_word(word) {
 				else
 					encountered[word[i]] += 1
 				if (tmpWinner.split(word[i]).length - 1 >= encountered[word[i]])
-					addElem('yellow', word.charAt(i))
+					addElem('orange', word.charAt(i))
 				else
 					addElem('grey', word.charAt(i))
 				if (encounters['correct'][i] == '_')
 					encounters['position'][i].push(word[i])
 			}
-			else
+			else if (!encounters['correct'].includes(word[i]))
 			{
 				addElem('grey', word.charAt(i))
 				encounters['wrong'].push(word.charAt(i))
 			}
+			else
+				addElem('lightgrey', word.charAt(i))
 			i += 1
 		}
 	}
-	// encounters = updateEncounters(encounters)
+	encounters = updateEncounters(encounters)
 	updateAssistant()
 };
