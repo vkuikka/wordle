@@ -1,3 +1,5 @@
+import { solve } from "../solve.mjs"
+
 String.prototype.replaceAt = function(index, replacement) {
     if (index >= this.length)
         return this.valueOf();
