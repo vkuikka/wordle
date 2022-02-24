@@ -31,6 +31,12 @@ fetch('../data/answers.txt')
 
 let tries = 1
 
+export let encounters = {
+	"wrong": ['a', 'b'],
+	"position": [['a', 'b'], ['w'], ['a'], [], []],
+	"correct": ['c', 'a', 'x']
+}
+
 document.getElementById("input_box").onchange = function() {
 	console.log(tries + ' / 6')
 	word = this.value.toLowerCase()
