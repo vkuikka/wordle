@@ -32,8 +32,8 @@ fetch('../data/answers.txt')
 let tries = 1
 
 export let encounters = {
-	"wrong": ['u', 'i'],
-	"position": [['a', 'b'], ['w'], ['a'], [], []],
+	"wrong": [],
+	"position": [[], [], [], [], []],
 	"correct": ['_', '_', '_', '_', '_']
 }
 
@@ -42,18 +42,21 @@ document.getElementById("input_box").onchange = function() {
 	word = this.value.toLowerCase()
 	let	encountered = {}
 	let tmpWinner = winner
+	let	i
 
+	i = 0
 	if (word.length != 5)
 	// if (word.length != 5 || (!allowed.includes(word) && !answers.includes(word)))
 		console.log("not valid word")
 	else
 	{
 		tries += 1
-		let i = 0
+		i = 0
 		while (i < 5)
 		{
 			if (word[i] == tmpWinner[i]) {
 				encounters['correct'][i] = word[i]
+				encounters['position'][i] = []
 				tmpWinner = tmpWinner.replaceAt(i, '_')
 			}
 			i += 1
@@ -73,9 +76,14 @@ document.getElementById("input_box").onchange = function() {
 					addElem('yellow', word.charAt(i))
 				else
 					addElem('grey', word.charAt(i))
+				if (encounters['correct'][i] == '_')
+					encounters['position'][i].push(word[i])
 			}
 			else
+			{
 				addElem('grey', word.charAt(i))
+				encounters['wrong'].push(word.charAt(i))
+			}
 			i += 1
 		}
 	}
