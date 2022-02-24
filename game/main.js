@@ -32,9 +32,9 @@ fetch('../data/answers.txt')
 let tries = 1
 
 export let encounters = {
-	"wrong": ['a', 'b'],
+	"wrong": ['u', 'i'],
 	"position": [['a', 'b'], ['w'], ['a'], [], []],
-	"correct": ['c', 'a', 'x']
+	"correct": ['_', '_', '_', '_', '_']
 }
 
 document.getElementById("input_box").onchange = function() {
@@ -52,8 +52,10 @@ document.getElementById("input_box").onchange = function() {
 		let i = 0
 		while (i < 5)
 		{
-			if (word[i] == tmpWinner[i])
+			if (word[i] == tmpWinner[i]) {
+				encounters['correct'][i] = word[i]
 				tmpWinner = tmpWinner.replaceAt(i, '_')
+			}
 			i += 1
 		}
 		i = 0
