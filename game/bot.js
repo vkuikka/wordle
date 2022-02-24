@@ -13,7 +13,20 @@ fetch('../data/answers.txt')
 document.getElementById("botButton").onclick = function() {
 	// console.log(answers)
 	// console.log(allowed)
-	encounters["position"][0].forEach(element => {
-		console.log(element)
+
+	let index = 0
+	answers.forEach(word => {
+		if (word)
+			for (let i = 0; i < 5; i++) {
+				if (word != 0 && encounters["correct"][i] != '_' && word.charAt(i) != encounters["correct"][i]) {
+					answers[index] = 0
+					break;
+				}
+			}
+		index++
+	})
+	answers.forEach(word => {
+		if (word)
+			console.log(word)
 	})
 }
