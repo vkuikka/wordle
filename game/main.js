@@ -14,15 +14,14 @@ function addElem(color, char) {
 }
 
 let	word = '12345'
-
 let	allowed = 0
 let	answers = 0
 let	winner = 0
-// get text file and log it to console
-fetch('allowed.txt')
+
+fetch('../data/allowed.txt')
 	.then(response => response.text())
 	.then(text => allowed = text.split('\n'))
-fetch('answers.txt')
+fetch('../data/answers.txt')
 	.then(response => response.text())
 	.then(text => {
 		answers = text.split('\n')
@@ -72,4 +71,5 @@ document.getElementById("input_box").onchange = function() {
 			i += 1
 		}
 	}
+	this.value = ""
 };
