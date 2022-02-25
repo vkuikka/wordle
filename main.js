@@ -35,10 +35,10 @@ let	answers_file = 0
 let	allowed = 0
 let	winner = 0
 
-fetch('../data/allowed.txt')
+fetch('./data/allowed.txt')
 	.then(response => response.text())
 	.then(text => allowed = text.split('\n'))
-	.then(() => fetch('../data/answers.txt')
+	.then(() => fetch('./data/answers.txt')
 		.then(response => response.text())
 		.then(text => {
 			answers = text.split('\n')
