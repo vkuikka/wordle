@@ -2,8 +2,7 @@ import { answers, input_word } from "./main.js"
 
 document.getElementById("botButton").onclick = botButtonAction
 
-// document.getElementById("botLoop").onclick = function() {
-export function what() {
+export function solveOnce() {
 	let i = 0
 	while (i < 7) {
 		botButtonAction()
